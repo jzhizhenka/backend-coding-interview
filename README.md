@@ -1,6 +1,7 @@
 # Photo Management API
 
 A RESTful API for browsing, searching, and managing photos, built with Django 5.2 and Django REST Framework.
+Please see /docs folder for architecture decisions and key trade-offs made during implementation.
 
 ## Tech Stack
 
@@ -457,43 +458,6 @@ docker compose exec web pytest
 # Locally (with virtualenv activated)
 pytest
 ```
-
-**88 tests** across three apps:
-
-### `users` app — 25 tests
-
-| Area | Tests |
-|------|-------|
-| User model | Creation, email normalization, superuser, validation |
-| Registration | Success, duplicates, weak password, missing/invalid fields |
-| Login | Success, case-insensitive email, wrong password, unknown user |
-| JWT claims | Custom payload (sub, email, role), admin role |
-| Token refresh | Valid refresh, invalid/missing token |
-| `/users/me` | Authenticated, unauthenticated, returns own data only |
-
-### `photographers` app — 16 tests
-
-| Area | Tests |
-|------|-------|
-| List | Public access, search by name, ordering |
-| Detail | Public access, 404 for missing |
-| Create | Admin succeeds, regular user forbidden, anonymous unauthorized, validation |
-| Update | Admin patch, regular user forbidden, anonymous unauthorized |
-| Delete | Admin succeeds, regular user forbidden, anonymous unauthorized, 404 for missing |
-
-### `photos` app — 47 tests
-
-| Area | Tests |
-|------|-------|
-| Models | Photographer/Photo/UserFavorite creation, str repr, FK cascade, unique constraint |
-| Photo list | Public access, pagination, search by alt, filters (photographer, color, dimensions), ordering |
-| Photo detail | Public access, 404 for missing |
-| Photo create | Admin succeeds, regular user forbidden, anonymous unauthorized, nonexistent photographer rejected, validation |
-| Photo update | Admin patch/multi-field update, regular user forbidden, anonymous unauthorized |
-| Photo delete | Admin succeeds, regular user forbidden, anonymous unauthorized, 404 for missing |
-| Favorites list | Authenticated empty/with items, user isolation, includes photo data, unauthenticated rejected |
-| Favorites toggle | Add, duplicate conflict (409), nonexistent photo (404), remove, independent per user |
-| Ingest command | Creates photographers + photos, idempotent on re-run |
 
 ## What I Would Add With More Time
 
