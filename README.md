@@ -26,16 +26,19 @@ That's it — no local Python installation required.
 git clone <repo-url>
 cd backend-coding-interview
 
-# 2. Start the services (PostgreSQL + Django)
+# 2. Create environment file from the example
+cp .env.example .env
+
+# 3. Start the services (PostgreSQL + Django)
 docker compose up -d
 
-# 3. Run database migrations
+# 4. Run database migrations
 docker compose exec web python manage.py migrate
 
-# 4. Ingest photo data from the Pexels dataset
+# 5. Ingest photo data from the Pexels dataset
 docker compose exec web python manage.py ingest_photos
 
-# 5. Create a superuser (optional, for admin access)
+# 6. Create a superuser (optional, for admin access)
 docker compose exec web python manage.py createsuperuser
 ```
 
